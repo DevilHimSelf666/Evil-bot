@@ -12,7 +12,7 @@ namespace IkEvil
     {
         public async Task Handle(MessageReceivedNotification notification, CancellationToken cancellationToken)
         {
-            Console.WriteLine($"MediatR works! (Received a message by {notification.Message.Author.Username})");
+            Console.WriteLine($"MediatR works! (Received a message by {notification.Message.Author.Username}): {notification.Message.Content}");
         }
     }
 }
