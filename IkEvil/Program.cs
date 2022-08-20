@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MediatR;
 using Discord.WebSocket;
 using Discord;
 using IkEvil;
@@ -7,6 +6,7 @@ using Discord.Interactions;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
+using IkEvil.Models;
 
 public class Bot
 {
@@ -15,13 +15,13 @@ public class Bot
     public Bot()
     {
         _configuration = new ConfigurationBuilder()
-              .AddJsonFile("appsettings.json", optional: true)
+              .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+              .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
               .Build();
     }
     private static ServiceProvider ConfigureServices()
     {
         return new ServiceCollection()
-            .AddMediatR(typeof(Bot))
             .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
             {
                 AlwaysDownloadUsers = true,
@@ -54,10 +54,10 @@ public class Bot
 
         var listener = services.GetRequiredService<DiscordEventListener>();
         await listener.StartAsync();
-        
-        await client.LoginAsync(TokenType.Bot, "MTAwMDY3Nzc0NTYzMTcxMTI2Mw.GCaPnW.IMTQcZV7WmpkEpeyJJSLAUL9Jo7RvtfO4dhrZI");
+        var botSetting = _configuration.GetSection("BotSettings").Get<BotSetting>();
+        await client.LoginAsync(TokenType.Bot, botSetting.Token);
         await client.StartAsync();
-        await LogAsync(new LogMessage(LogSeverity.Info, "Application", $"invitationURl:{Environment.NewLine}https://discordapp.com/oauth2/authorize?&client_id={"ApplicationId"}&scope=bot&permissions=8"));
+        await LogAsync(new LogMessage(LogSeverity.Info, "Application", $"invitationURl:{Environment.NewLine}https://discordapp.com/oauth2/authorize?&client_id={botSetting.ApplicationId}&scope=bot&permissions={botSetting.Permissions}"));
         await Task.Delay(Timeout.Infinite);
     }
 
@@ -78,4 +78,14 @@ public class Bot
 
         return Task.CompletedTask;
     }
+
+    public static bool IsDebug()
+    {
+#if DEBUG
+        return true;
+#else
+                return false;
+#endif
+    }
+
 }
