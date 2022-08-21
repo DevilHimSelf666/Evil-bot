@@ -8,6 +8,7 @@ using Serilog;
 using Serilog.Events;
 using IkEvil.Models;
 
+
 public class Bot
 {
 
@@ -36,8 +37,13 @@ public class Bot
 
     public static async Task Main()
     {
+        
         await new Bot().RunAsync();
     }
+
+  
+  
+
 
     private async Task RunAsync()
     {

@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using IkEvil.Modules;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -31,9 +32,40 @@ namespace IkEvil
         {
             _client.Ready += ReadyAsync;
             _client.InteractionCreated += HandleInteraction;
-
+            _client.SelectMenuExecuted += _client_SelectMenuExecuted;
             await _handler.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
-            
+
+        }
+
+        private async Task _client_SelectMenuExecuted(SocketMessageComponent arg)
+        {
+            switch (arg.Data.CustomId)
+            {
+                case "menu-1":
+                    await SetEmoji(arg);
+                    break;
+            }
+
+        }
+        public async Task SetEmoji(SocketMessageComponent arg)
+        {
+            var menuBuilder = new SelectMenuBuilder()
+         .WithPlaceholder("Select the emoji")
+         .WithCustomId("menu-2")
+         .WithMinValues(1)
+         .WithMaxValues(1)
+         .AddOption("red", "\U0001F534")
+         .AddOption("blue ", "\U0001F535")
+         .AddOption("orange ", "\U0001F536");
+
+
+
+
+            var builder = new ComponentBuilder()
+                .WithSelectMenu(menuBuilder);
+
+            await arg.RespondAsync($"choise the emoji for role {arg.Data.Values.First()}?", components: builder.Build());
+            return;
         }
 
         private async Task ReadyAsync()

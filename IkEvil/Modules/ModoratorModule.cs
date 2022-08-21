@@ -2,6 +2,8 @@
 using Discord.Interactions;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,31 +22,39 @@ namespace IkEvil.Modules
         [SlashCommand("delete", "Delete Messages.")]
         public async Task DeleteMessages(int messageCount = 1)
         {
-            var messages = await Context.Channel.GetMessagesAsync(messageCount).FirstAsync();
-            foreach (var msg in messages)
-            {
-                await Context.Channel.DeleteMessageAsync(msg.Id);
-            }
-            await RespondAsync(text: $"Last {messageCount} messages has been deleted", ephemeral: true);
+            IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(messageCount + 1).FlattenAsync();
+            await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+            const int delay = 3000;
+            IUserMessage m = await ReplyAsync($"I have deleted {messageCount} messages for ya. :)");
+            await Task.Delay(delay);
+            await m.DeleteAsync();
         }
 
-        [SlashCommand("delete-all", "Delete all Messages in the channel")]
-        public async Task DeleteAllMessages()
+        [SlashCommand("reaction-role", "choose your role")]
+        public async Task ReactionRole()
         {
-            var hasMessage = true;
-            while (hasMessage)
-            {
-                var messages = await Context.Channel.GetMessagesAsync(100).FirstAsync();
-                if (messages.Count == 0)
-                    hasMessage = false;
-                else
-                    foreach (var msg in messages)
-                        await Context.Channel.DeleteMessageAsync(msg.Id);
 
-            }
+            var menuBuilder = new SelectMenuBuilder()
+           .WithPlaceholder("Select an option")
+           .WithCustomId("menu-1")
+           .WithMinValues(1)
+           .WithMaxValues(1);
 
-            await RespondAsync(text: $"All Last messages has been deleted", ephemeral: true);
+
+            foreach (var role in Context.Guild.Roles)
+                menuBuilder.AddOption(role.Name, role.Name);
+
+
+            var builder = new ComponentBuilder()
+                .WithSelectMenu(menuBuilder);
+
+            await RespondAsync("Whos really lying?", components: builder.Build());
+            return;
         }
+
+
+       
 
     }
 }
+
