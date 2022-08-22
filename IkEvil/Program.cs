@@ -20,7 +20,7 @@ public class Bot
               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
               .Build();
     }
-    private static ServiceProvider ConfigureServices()
+    private  ServiceProvider ConfigureServices()
     {
         return new ServiceCollection()
             .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
@@ -31,6 +31,7 @@ public class Bot
                 LogLevel = LogSeverity.Info
             }))
             .AddSingleton<DiscordEventListener>()
+            .AddSingleton(_configuration)
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .BuildServiceProvider();
     }
@@ -54,7 +55,7 @@ public class Bot
             .CreateLogger();
 
         await using var services = ConfigureServices();
-
+        
         var client = services.GetRequiredService<DiscordSocketClient>();
         client.Log += LogAsync;
 

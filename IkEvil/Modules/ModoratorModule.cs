@@ -1,5 +1,7 @@
 ﻿using Discord;
 using Discord.Interactions;
+using IkEvil.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,6 +15,11 @@ namespace IkEvil.Modules
     public class ModoratorModule : InteractionModuleBase<SocketInteractionContext>
     {
 
+        private readonly IConfiguration _configuration;
+        public ModoratorModule(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         [SlashCommand("ping", "Pings the bot and returns its latency.")]
         public async Task Ping()
@@ -25,9 +32,8 @@ namespace IkEvil.Modules
             IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(messageCount + 1).FlattenAsync();
             await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
             const int delay = 3000;
-            IUserMessage m = await ReplyAsync($"I have deleted {messageCount} messages for ya. :)");
-            await Task.Delay(delay);
-            await m.DeleteAsync();
+            await RespondAsync($"I have deleted {messageCount} messages for ya. :)", ephemeral: true);
+
         }
 
         [SlashCommand("reaction-role", "choose your role")]
@@ -48,11 +54,20 @@ namespace IkEvil.Modules
             var builder = new ComponentBuilder()
                 .WithSelectMenu(menuBuilder);
 
-            await RespondAsync("Whos really lying?", components: builder.Build());
+            await RespondAsync("Chose your Role?", components: builder.Build());
             return;
         }
 
 
+        [SlashCommand("invite-link", "Get invite Link")]
+        public async Task GetInviteLink()
+        {
+            var botSetting = _configuration.GetSection("BotSettings").Get<BotSetting>();
+            await RespondAsync($"https://discordapp.com/oauth2/authorize?&client_id={botSetting.ApplicationId}&scope=bot&permissions={botSetting.Permissions}");
+            return;
+        }
+
+      
        
 
     }

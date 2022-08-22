@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.32804.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IkEvil", "IkEvil\IkEvil.csproj", "{52D35A5E-AC1A-4E7A-AC6A-6E57E607837B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02-Evil.Application", "Evil.Application\02-Evil.Application.csproj", "{20AC7D26-3423-417A-976F-4F6E46C9C2B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01-Evil.Domain", "Evil.Domain\01-Evil.Domain.csproj", "{BE8A9C6D-9CFE-4B51-85F5-E9EEC97EAE87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03-Evil.Infrastructure", "Evil.Infrastructure\03-Evil.Infrastructure.csproj", "{A1776185-0C50-4806-AFBB-92EF65FFEE57}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04-Evil.IKBot", "IkEvil\04-Evil.IKBot.csproj", "{52D35A5E-AC1A-4E7A-AC6A-6E57E607837B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +17,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20AC7D26-3423-417A-976F-4F6E46C9C2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20AC7D26-3423-417A-976F-4F6E46C9C2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20AC7D26-3423-417A-976F-4F6E46C9C2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20AC7D26-3423-417A-976F-4F6E46C9C2B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE8A9C6D-9CFE-4B51-85F5-E9EEC97EAE87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE8A9C6D-9CFE-4B51-85F5-E9EEC97EAE87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE8A9C6D-9CFE-4B51-85F5-E9EEC97EAE87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE8A9C6D-9CFE-4B51-85F5-E9EEC97EAE87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1776185-0C50-4806-AFBB-92EF65FFEE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1776185-0C50-4806-AFBB-92EF65FFEE57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1776185-0C50-4806-AFBB-92EF65FFEE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1776185-0C50-4806-AFBB-92EF65FFEE57}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52D35A5E-AC1A-4E7A-AC6A-6E57E607837B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{52D35A5E-AC1A-4E7A-AC6A-6E57E607837B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D35A5E-AC1A-4E7A-AC6A-6E57E607837B}.Release|Any CPU.ActiveCfg = Release|Any CPU
