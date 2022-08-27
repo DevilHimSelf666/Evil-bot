@@ -15,13 +15,13 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IkEvil.Modules
 {
-    public class ModoratorModule : InteractionModuleBase<SocketInteractionContext>
+    public class ModeratorModule : InteractionModuleBase<SocketInteractionContext>
     {
 
         private readonly IConfiguration _configuration;
         private readonly IMediator mediator;
 
-        public ModoratorModule(IConfiguration configuration, IMediator mediator)
+        public ModeratorModule(IConfiguration configuration, IMediator mediator)
         {
             _configuration = configuration;
             this.mediator = mediator;
