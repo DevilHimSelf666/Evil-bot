@@ -32,7 +32,7 @@ public class Bot
             .AddSingleton<DiscordEventListener>()
             .AddSingleton(_configuration)
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
-            .AddInfrastructureServices()
+            .AddApplicationServices()
             .BuildServiceProvider();
         
         return provider;
