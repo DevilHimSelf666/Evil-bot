@@ -1,6 +1,8 @@
 ﻿using Discord;
 using Discord.Interactions;
-using IkEvil.Models;
+using Evil.Application.Handlres;
+using Handlres;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IkEvil.Modules
 {
@@ -16,14 +19,21 @@ namespace IkEvil.Modules
     {
 
         private readonly IConfiguration _configuration;
-        public ModoratorModule(IConfiguration configuration)
+        private readonly IMediator mediator;
+
+        public ModoratorModule(IConfiguration configuration, IMediator mediator)
         {
             _configuration = configuration;
+            this.mediator = mediator;
         }
 
         [SlashCommand("ping", "Pings the bot and returns its latency.")]
         public async Task Ping()
-             => await RespondAsync(text: $":ping_pong: It took me {Context.Client.Latency}ms to respond to you!", ephemeral: true);
+        {
+
+            var pong =  await mediator.Send(new PingCommand() {Latency = Context.Client.Latency });
+            await RespondAsync(text: pong.Message, ephemeral: true);
+        }
 
 
         [SlashCommand("delete", "Delete Messages.")]

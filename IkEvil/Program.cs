@@ -6,7 +6,6 @@ using Discord.Interactions;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
-using IkEvil.Models;
 
 
 public class Bot
@@ -22,7 +21,7 @@ public class Bot
     }
     private  ServiceProvider ConfigureServices()
     {
-        return new ServiceCollection()
+        var provider = new ServiceCollection()
             .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
             {
                 AlwaysDownloadUsers = true,
@@ -33,7 +32,11 @@ public class Bot
             .AddSingleton<DiscordEventListener>()
             .AddSingleton(_configuration)
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
+            .AddInfrastructureServices()
             .BuildServiceProvider();
+        
+        return provider;
+
     }
 
     public static async Task Main()
@@ -64,7 +67,6 @@ public class Bot
         var botSetting = _configuration.GetSection("BotSettings").Get<BotSetting>();
         await client.LoginAsync(TokenType.Bot, botSetting.Token);
         await client.StartAsync();
-        await LogAsync(new LogMessage(LogSeverity.Info, "Application", $"invitationURl:{Environment.NewLine}https://discordapp.com/oauth2/authorize?&client_id={botSetting.ApplicationId}&scope=bot&permissions={botSetting.Permissions}"));
         await Task.Delay(Timeout.Infinite);
     }
 

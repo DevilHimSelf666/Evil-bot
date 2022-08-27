@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IkEvil.Models
+namespace Evil.Domain.Entities
 {
 
     public class Dragon
