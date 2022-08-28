@@ -26,10 +26,10 @@ namespace Evil.IKBot.Modules
         }
 
         [SlashCommand("dragon-gold", "Get Dragon Gold.")]
-        public async Task GetDragonGold(int dragonlevel)
+        public async Task GetDragonGold(int dragonLevel)
         {
 
-            var result = await mediator.Send(new GetDragonGoldQuery() { DragonLevel = dragonlevel });
+            var result = await mediator.Send(new GetDragonGoldQuery(dragonLevel) );
             await RespondAsync(text: result.GoldCost.ToString(), ephemeral: true);
         }
 

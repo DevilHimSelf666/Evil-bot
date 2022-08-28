@@ -15,10 +15,7 @@ namespace Evil.Application.Handlres.InfinityCommands.DragonQuery
         {
             DragonLevel = dragonLevel;
         }
-        public GetDragonGoldQuery()
-        {
 
-        }
         public int DragonLevel { get; set; }
     }
     public class GetDragonGoldQueryHandler : IRequestHandler<GetDragonGoldQuery, DragonDto>
