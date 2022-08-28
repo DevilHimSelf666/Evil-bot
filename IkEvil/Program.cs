@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Evil.Infrastructure;
 using IkEvil;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,7 @@ public class Bot
             .AddSingleton(_configuration)
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .AddApplicationServices()
+            .AddInfrastructureServices()
             .BuildServiceProvider();
 
         return provider;

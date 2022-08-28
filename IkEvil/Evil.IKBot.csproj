@@ -25,8 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Evil.Application\02-Evil.Application.csproj" />
-    <ProjectReference Include="..\Evil.Domain\01-Evil.Domain.csproj" />
+    <ProjectReference Include="..\Evil.Application\Evil.Application.csproj" />
+    <ProjectReference Include="..\Evil.Domain\Evil.Domain.csproj" />
+    <ProjectReference Include="..\Evil.Infrastructure\Evil.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

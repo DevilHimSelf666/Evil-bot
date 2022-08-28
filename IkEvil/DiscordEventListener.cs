@@ -73,7 +73,7 @@ namespace IkEvil
             {
                 // Create an execution context that matches the generic type parameter of your InteractionModuleBase<T> modules.
                 var context = new SocketInteractionContext(_client, interaction);
-                var SocketCommandBase = ((Discord.WebSocket.SocketCommandBase)interaction);
+                var SocketCommandBase = ((SocketCommandBase)interaction);
                 Log.Write(Serilog.Events.LogEventLevel.Information, "[{Source}] {Type} {Message}", interaction.User.Username, SocketCommandBase.CommandName, SocketCommandBase.Type.ToString());
                 // Execute the incoming command.
                 var result = await _handler.ExecuteCommandAsync(context, _services);

@@ -5,7 +5,7 @@ namespace Evil.Domain
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
             return services;
         }
