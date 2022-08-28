@@ -1,16 +1,8 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
-using IkEvil.Modules;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IkEvil
 {
@@ -64,7 +56,7 @@ namespace IkEvil
             var builder = new ComponentBuilder()
                 .WithSelectMenu(menuBuilder);
 
-            await arg.RespondAsync($"choise the emoji for role {arg.Data.Values.First()}?", components: builder.Build());
+            await arg.RespondAsync($"choose the emoji for role {arg.Data.Values.First()}?", components: builder.Build());
             return;
         }
 

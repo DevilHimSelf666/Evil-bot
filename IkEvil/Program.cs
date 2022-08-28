@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Discord.WebSocket;
-using Discord;
-using IkEvil;
+﻿using Discord;
 using Discord.Interactions;
+using Discord.WebSocket;
+using IkEvil;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
 
@@ -19,7 +19,7 @@ public class Bot
               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
               .Build();
     }
-    private  ServiceProvider ConfigureServices()
+    private ServiceProvider ConfigureServices()
     {
         var provider = new ServiceCollection()
             .AddSingleton(new DiscordSocketClient(new DiscordSocketConfig
@@ -34,19 +34,19 @@ public class Bot
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .AddApplicationServices()
             .BuildServiceProvider();
-        
+
         return provider;
 
     }
 
     public static async Task Main()
     {
-        
+
         await new Bot().RunAsync();
     }
 
-  
-  
+
+
 
 
     private async Task RunAsync()
@@ -58,7 +58,7 @@ public class Bot
             .CreateLogger();
 
         await using var services = ConfigureServices();
-        
+
         var client = services.GetRequiredService<DiscordSocketClient>();
         client.Log += LogAsync;
 

@@ -1,17 +1,8 @@
 ﻿using Discord;
 using Discord.Interactions;
-using Evil.Application.Handlres;
-using Handlres;
+using Handlres.PingCommand;
 using MediatR;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace IkEvil.Modules
 {
@@ -31,7 +22,7 @@ namespace IkEvil.Modules
         public async Task Ping()
         {
 
-            var pong =  await mediator.Send(new PingCommand() {Latency = Context.Client.Latency });
+            var pong = await mediator.Send(new PingCommand() { Latency = Context.Client.Latency });
             await RespondAsync(text: pong.Message, ephemeral: true);
         }
 
@@ -41,7 +32,6 @@ namespace IkEvil.Modules
         {
             IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(messageCount + 1).FlattenAsync();
             await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
-            const int delay = 3000;
             await RespondAsync($"I have deleted {messageCount} messages for ya. :)", ephemeral: true);
 
         }
@@ -77,8 +67,8 @@ namespace IkEvil.Modules
             return;
         }
 
-      
-       
+
+
 
     }
 }

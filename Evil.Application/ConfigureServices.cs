@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
 using System.Reflection;
-using MediatR;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
