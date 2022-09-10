@@ -29,8 +29,8 @@ namespace Evil.IKBot.Modules
         public async Task GetDragonGold(int dragonLevel)
         {
 
-            var result = await mediator.Send(new GetDragonGoldQuery(dragonLevel) );
-            await RespondAsync(text: result.GoldCost.ToString(), ephemeral: true);
+            var result = await mediator.Send(new GetDragonGoldQuery(dragonLevel));
+            await RespondAsync(text: result.GoldCost.ToString());
         }
 
     }
